@@ -7,22 +7,77 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Relationship Loyalty Test 💕</h1>
-  <form id="testForm">
-    <label>Your Name:</label>
+  <h1>💖 Relationship Loyalty Test 💖</h1>
+
+  <!-- Agreement Section -->
+  <div id="agreement">
+    <p>
+      By using this platform, you agree that this service is for entertainment
+      purposes only and you consent to us contacting your partner.
+    </p>
+    <button id="agreeBtn">I Agree & Continue</button>
+  </div>
+
+  <!-- Form Section -->
+  <form id="testForm" style="display:none;">
+    <h2>Fill in your details</h2>
+
+    <label>Your Full Name:</label><br>
     <input type="text" name="userName" required><br><br>
 
-    <label>Partner's Name:</label>
+    <label>Your Phone Number:</label><br>
+    <input type="tel" name="userPhone" required><br><br>
+
+    <label>Your Nationality:</label><br>
+    <input type="text" name="userNationality" required><br><br>
+
+    <label>Upload Your Picture:</label><br>
+    <input type="file" name="userPicture" accept="image/*" required><br><br>
+
+    <hr>
+
+    <label>Partner's Full Name:</label><br>
     <input type="text" name="partnerName" required><br><br>
 
-    <label>Partner's Social Link:</label>
+    <label>Partner's Nationality:</label><br>
+    <input type="text" name="partnerNationality" required><br><br>
+
+    <label>Upload Partner's Picture:</label><br>
+    <input type="file" name="partnerPicture" accept="image/*" required><br><br>
+
+    <label>Partner's Social Link:</label><br>
     <input type="url" name="partnerLink" required><br><br>
+
+    <hr>
+
+    <h3>Payment</h3>
+    <p>🇳🇬 Partner in Nigeria: ₦2000<br>🌍 Partner outside Nigeria: ₦4000</p>
+
+    <label>Select Payment Option:</label><br>
+    <select name="paymentOption" required>
+      <option value="">-- Select --</option>
+      <option value="2000">₦2000 (Nigeria)</option>
+      <option value="4000">₦4000 (Outside Nigeria)</option>
+    </select><br><br>
 
     <button type="submit">Submit Loyalty Test</button>
   </form>
 
   <p id="response"></p>
 
-  <script src="script.js"></script>
+  <script>
+    // Show form only after agreement
+    document.getElementById("agreeBtn").addEventListener("click", function() {
+      document.getElementById("agreement").style.display = "none";
+      document.getElementById("testForm").style.display = "block";
+    });
+
+    // Handle form submission
+    document.getElementById("testForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("response").innerText =
+        "✅ Your loyalty test request has been submitted! We’ll contact your partner and update you here.";
+    });
+  </script>
 </body>
 </html>
