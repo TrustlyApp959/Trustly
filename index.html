@@ -3,80 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loyalty Test App</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Loyalty Test</title>
+  <link rel="stylesheet" href="Style.css">
+  <!-- Paystack script -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
 <body>
-  <h1>💖 Relationship Loyalty Test 💖</h1>
+  <h1>Loyalty Test Platform</h1>
+  <p>Fill the form below to test your partner’s loyalty. Payment is required before submission.</p>
 
-  <!-- Agreement Section -->
-  <div id="agreement">
-    <p>
-      By using this platform, you agree that this service is for entertainment
-      purposes only and you consent to us contacting your partner.
-    </p>
-    <button id="agreeBtn">I Agree & Continue</button>
-  </div>
+  <!-- Formspree Form -->
+  <form id="loyaltyForm" action="https://formspree.io/f/mrbybgan" method="POST">
+    <label>Your Name:</label><br>
+    <input type="text" name="user_name" required><br><br>
 
-  <!-- Form Section -->
-  <form id="testForm" style="display:none;">
-    <h2>Fill in your details</h2>
+    <label>Your Email:</label><br>
+    <input type="email" name="user_email" required><br><br>
 
-    <label>Your Full Name:</label><br>
-    <input type="text" name="userName" required><br><br>
-
-    <label>Your Phone Number:</label><br>
-    <input type="tel" name="userPhone" required><br><br>
-
-    <label>Your Nationality:</label><br>
-    <input type="text" name="userNationality" required><br><br>
-
-    <label>Upload Your Picture:</label><br>
-    <input type="file" name="userPicture" accept="image/*" required><br><br>
-
-    <hr>
-
-    <label>Partner's Full Name:</label><br>
-    <input type="text" name="partnerName" required><br><br>
-
-    <label>Partner's Nationality:</label><br>
-    <input type="text" name="partnerNationality" required><br><br>
-
-    <label>Upload Partner's Picture:</label><br>
-    <input type="file" name="partnerPicture" accept="image/*" required><br><br>
+    <label>Your Partner's Name:</label><br>
+    <input type="text" name="partner_name" required><br><br>
 
     <label>Partner's Social Link:</label><br>
-    <input type="url" name="partnerLink" required><br><br>
+    <input type="url" name="partner_link" required><br><br>
 
-    <hr>
+    <label>Your Nationality:</label><br>
+    <input type="text" name="nationality" required><br><br>
 
-    <h3>Payment</h3>
-    <p>🇳🇬 Partner in Nigeria: ₦2000<br>🌍 Partner outside Nigeria: ₦4000</p>
+    <label>Partner’s Nationality:</label><br>
+    <input type="text" name="partner_nationality" required><br><br>
 
-    <label>Select Payment Option:</label><br>
-    <select name="paymentOption" required>
-      <option value="">-- Select --</option>
-      <option value="2000">₦2000 (Nigeria)</option>
-      <option value="4000">₦4000 (Outside Nigeria)</option>
-    </select><br><br>
-
-    <button type="submit">Submit Loyalty Test</button>
+    <button type="submit">Proceed to Payment</button>
   </form>
 
-  <p id="response"></p>
-
   <script>
-    // Show form only after agreement
-    document.getElementById("agreeBtn").addEventListener("click", function() {
-      document.getElementById("agreement").style.display = "none";
-      document.getElementById("testForm").style.display = "block";
-    });
+    const form = document.getElementById("loyaltyForm");
 
-    // Handle form submission
-    document.getElementById("testForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      document.getElementById("response").innerText =
-        "✅ Your loyalty test request has been submitted! We’ll contact your partner and update you here.";
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // stop normal submit
+
+      let amount = 2000; // default ₦2000
+      if (form.partner_nationality.value.toLowerCase() !== "nigeria") {
+        amount = 4000; // ₦4000 if partner is abroad
+      }
+
+      let handler = PaystackPop.setup({
+        key: 'pk_live_56fe864f50d66765f97b7ab3be2b5d6b438f877e', // ✅ Your live key
+        email: form.user_email.value,
+        amount: amount * 100, // Paystack needs amount in kobo
+        currency: "NGN",
+        callback: function(response) {
+          alert("✅ Payment successful! Ref: " + response.reference);
+          form.submit(); // send form data to Formspree (your Gmail)
+        },
+        onClose: function() {
+          alert('Payment window closed ❌');
+        }
+      });
+
+      handler.openIframe();
     });
   </script>
 </body>
