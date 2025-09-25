@@ -3,15 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment Successful 🎉</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Payment Successful - Trustly Loyalty Test</title>
+  <style>
+    body {
+      font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(270deg, #6dd5ed, #2193b0, #6dd5ed);
+      background-size: 600% 600%;
+      animation: gradientBG 12s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #ffcc00;
+      text-shadow: 0 0 10px #fff700, 0 0 20px #ffcc00;
+      animation: bounce 2s infinite, glow 1.5s infinite alternate;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff700, 0 0 20px #ffcc00; }
+      to { text-shadow: 0 0 20px #ffe066, 0 0 40px #ffd633; }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 2;
+    }
+
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn {
+      background: #ffcc00;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 10px;
+      transition: 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+    .btn:hover {
+      background: #ffdb4d;
+    }
+
+    /* Floating hearts */
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 2rem;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+  </style>
 </head>
-<body class="success-page">
-  <div class="container">
-    <h1>🎉 Payment Successful! 🎉</h1>
-    <p>Thank you for trusting <b>Trustly Loyalty Test 💖</b>.</p>
-    <p>We’ve received your request. Sit back & relax while we handle the rest!</p>
-    <a href="index.html" class="home-btn">⬅️ Back to Home</a>
+<body>
+  <div class="logo">✨ Trustly Loyalty Test ✨</div>
+  <h1>🎉 Payment Successful!</h1>
+  <p>Thank you for trusting <b>Trustly Loyalty Test</b>.  
+     We’ve received your payment and your details have been submitted successfully.</p>
+  <a class="btn" href="index.html">🔙 Go Back to Home</a>
+
+  <!-- Floating hearts -->
+  <div class="hearts">
+    <div class="heart" style="left:10%; animation-delay:0s;">❤️</div>
+    <div class="heart" style="left:25%; animation-delay:2s;">💖</div>
+    <div class="heart" style="left:50%; animation-delay:4s;">💕</div>
+    <div class="heart" style="left:70%; animation-delay:1s;">💓</div>
+    <div class="heart" style="left:85%; animation-delay:3s;">❤️</div>
   </div>
 </body>
 </html>
