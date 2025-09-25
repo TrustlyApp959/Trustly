@@ -3,50 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trustly - Relationship Loyalty Test</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Loyalty Test</title>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 450px;
+      text-align: left;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2575fc;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    p.note {
+      text-align: center;
+      font-size: 14px;
+      color: #444;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>💖 Welcome to Trustly 💖</h1>
-    <p>Test your partner's loyalty in a fun and simple way!</p>
+    <h1>💖 Loyalty Test</h1>
+    <p class="note">Fill the form to test your partner’s loyalty. Payment is required before submission.</p>
 
-    <form id="paymentForm">
-      <label for="userNumber">Your WhatsApp Number:</label>
-      <input type="text" id="userNumber" placeholder="e.g. 08012345678" required>
+    <form id="loyaltyForm" action="https://formspree.io/f/mabcdxyz" method="POST">
+      <label>Your Name:</label>
+      <input type="text" name="user_name" required>
 
-      <label for="partnerNumber">Partner's WhatsApp Number:</label>
-      <input type="text" id="partnerNumber" placeholder="e.g. 08087654321" required>
+      <label>Your Email:</label>
+      <input type="email" name="user_email" required>
 
-      <button type="submit">Pay ₦2000 to Continue</button>
+      <label>Your WhatsApp Number:</label>
+      <input type="tel" name="user_whatsapp" required>
+
+      <label>Your Partner's Name:</label>
+      <input type="text" name="partner_name" required>
+
+      <label>Partner's WhatsApp Number:</label>
+      <input type="tel" name="partner_whatsapp" required>
+
+      <label>Your Nationality:</label>
+      <input type="text" name="nationality" required>
+
+      <label>Partner’s Nationality:</label>
+      <input type="text" name="partner_nationality" required>
+
+      <button type="submit">Proceed to Payment</button>
     </form>
   </div>
 
-  <script src="https://js.paystack.co/v1/inline.js"></script>
   <script>
-    const paymentForm = document.getElementById('paymentForm');
-    paymentForm.addEventListener("submit", payWithPaystack, false);
+    const form = document.getElementById("loyaltyForm");
 
-    function payWithPaystack(e) {
-      e.preventDefault();
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // stop normal submit
+
+      let amount = 2000; // default ₦2000
+      if (form.partner_nationality.value.toLowerCase() !== "nigeria") {
+        amount = 4000; // ₦4000 if partner is abroad
+      }
 
       let handler = PaystackPop.setup({
-        key: 'pk_live_56fe864f50d66765f97l', // ✅ your live public key
-        email: "customer@example.com", // Optional: You can collect real email too
-        amount: 200000, // amount in Kobo (₦2000)
+        key: 'pk_live_56fe864f50d66765f97b7ab3be2b5d6b438f877e',
+        email: form.user_email.value,
+        amount: amount * 100, // convert to kobo
         currency: "NGN",
         callback: function(response) {
-          // ✅ Redirect to success.html
-          window.location.href = "success.html";
+          alert("Payment successful! Reference: " + response.reference);
+          form.submit(); // send form to your Gmail via Formspree
         },
         onClose: function() {
-          // ❌ Redirect to failure.html
-          window.location.href = "failure.html";
+          alert('Payment window closed.');
         }
       });
 
       handler.openIframe();
-    }
+    });
   </script>
 </body>
 </html>
