@@ -142,41 +142,26 @@
     <button type="submit">💳 Proceed to Payment</button>
   </form>
 
-  <!-- Success message -->
-  <div id="successMessage" class="message success">
-    🎉 Payment Successful! <br><br>
-    Thank you for trusting <strong>Trustly Loyalty Test 💕</strong>.  
-    We’ve received your details and payment. 💌  
-  </div>
-
-  <!-- Failure message -->
-  <div id="failureMessage" class="message failure">
-    ❌ Payment Failed. <br><br>
-    Oops! Something went wrong with your payment.  
-    Please try again.  
-  </div>
-
   <script>
     const form = document.getElementById("loyaltyForm");
-    const successDiv = document.getElementById("successMessage");
-    const failureDiv = document.getElementById("failureMessage");
 
     form.addEventListener("submit", function(e) {
       e.preventDefault();
 
       let handler = PaystackPop.setup({
-        key: 'pk_live_56fe864f50d66765f97b7ab3be2b5d6b438f877e',
+        key: 'pk_live_56fe864f50d66765f97b7ab3be2b5d6b438f877e', // your Paystack public key
         email: form.user_email.value,
         amount: 2000 * 100,
         currency: "NGN",
         callback: function(response) {
-          form.style.display = "none";
-          successDiv.style.display = "block";
-          form.submit(); // send details to Formspree
+          // send form details to Formspree
+          form.submit();
+          // then redirect user to success page
+          window.location.href = "success.html";
         },
         onClose: function() {
-          form.style.display = "none";
-          failureDiv.style.display = "block";
+          // redirect user to failure page
+          window.location.href = "failure.html";
         }
       });
 
