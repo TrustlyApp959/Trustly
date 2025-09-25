@@ -3,135 +3,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trustly Loyalty Test</title>
-  <link rel="stylesheet" href="Style.css">
+  <title>Trustly Loyalty Test 💕</title>
   <script src="https://js.paystack.co/v1/inline.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7, #ffdde1);
       text-align: center;
+      color: #333;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-      background-size: 400% 400%;
-      animation: gradientBG 10s ease infinite;
-      color: white;
+      overflow-x: hidden;
     }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .animated-title {
-      font-size: 42px;
+    /* Logo / Banner */
+    .logo {
+      font-size: 3rem;
       font-weight: bold;
-      margin-top: 40px;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
-      animation: bounceGlow 2s infinite;
+      background: linear-gradient(45deg, #ff4b5c, #ff80ab, #ffcc70);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 8px rgba(255, 75, 92, 0.6);
+      margin: 25px 10px;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 8px #ff4b5c, 0 0 16px #ff80ab; }
+      to { text-shadow: 0 0 18px #ffcc70, 0 0 28px #ff4b5c; }
     }
 
-    @keyframes bounceGlow {
-      0%   { transform: scale(1); text-shadow: 0 0 10px #ff9a9e; }
-      25%  { transform: scale(1.1); text-shadow: 0 0 20px #fad0c4; }
-      50%  { transform: scale(1); text-shadow: 0 0 30px #fbc2eb; }
-      75%  { transform: scale(1.1); text-shadow: 0 0 20px #a18cd1; }
-      100% { transform: scale(1); text-shadow: 0 0 10px #ff9a9e; }
+    p {
+      font-size: 1.2rem;
+      margin: 15px 20px;
     }
-
     form {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: auto;
-      color: white;
+      margin: 25px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 15px;
+      max-width: 500px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+      position: relative;
+      z-index: 2;
     }
-
-    input, button {
-      width: 90%;
-      padding: 10px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 5px;
-    }
-
-    input {
-      background: rgba(255, 255, 255, 0.8);
-      color: #333;
-    }
-
-    button {
-      background: #ff4081;
-      color: white;
+    label {
+      display: block;
+      margin: 10px 0 5px;
       font-weight: bold;
-      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    input {
+      width: 90%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 2px solid #ff4b5c;
+      outline: none;
+      font-size: 1rem;
       transition: 0.3s;
     }
-
+    input:focus {
+      border-color: #ff1e56;
+      box-shadow: 0 0 8px rgba(255,75,92,0.5);
+    }
+    button {
+      background: #ff4b5c;
+      color: white;
+      border: none;
+      padding: 14px 22px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
     button:hover {
-      background: #e91e63;
+      background: #e63946;
+      transform: scale(1.05);
+    }
+    .message {
+      display: none;
+      margin: 30px auto;
+      padding: 35px;
+      max-width: 500px;
+      border-radius: 15px;
+      font-size: 1.3rem;
+      box-shadow: 0px 8px 15px rgba(0,0,0,0.2);
+      z-index: 2;
+      position: relative;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .failure {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    /* Floating hearts animation */
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <h1 class="animated-title">Trustly Loyalty Test 💖</h1>
-  <p>Fill the form below to test your partner’s loyalty. Payment is required before submission.</p>
+  <div class="logo">💕 Trustly Loyalty Test 💕</div>
+  <p>💌 Fill the form below to test your partner’s loyalty.  
+  Payment of <strong>₦2000</strong> is required before submission.</p>
 
-  <form id="loyaltyForm" action="https://formspree.io/f/mabcdxyz" method="POST">
-    <label>Your Name:</label><br>
-    <input type="text" name="user_name" required><br>
+  <form id="loyaltyForm" action="https://formspree.io/f/mrbybgan" method="POST">
+    <label>😊 Your Name:</label>
+    <input type="text" name="user_name" required>
 
-    <label>Your Email:</label><br>
-    <input type="email" name="user_email" required><br>
+    <label>📧 Your Email:</label>
+    <input type="email" name="user_email" required>
 
-    <label>Your WhatsApp Number:</label><br>
-    <input type="text" name="user_whatsapp" required><br>
+    <label>📱 Your WhatsApp Number:</label>
+    <input type="text" name="user_whatsapp" required>
 
-    <label>Your Partner's Name:</label><br>
-    <input type="text" name="partner_name" required><br>
+    <label>❤️ Your Partner's Name:</label>
+    <input type="text" name="partner_name" required>
 
-    <label>Partner's WhatsApp Number:</label><br>
-    <input type="text" name="partner_whatsapp" required><br>
+    <label>💬 Partner's WhatsApp Number:</label>
+    <input type="text" name="partner_whatsapp" required>
 
-    <label>Your Nationality:</label><br>
-    <input type="text" name="nationality" required><br>
+    <label>🌍 Your Nationality:</label>
+    <input type="text" name="nationality" required>
 
-    <label>Partner’s Nationality:</label><br>
-    <input type="text" name="partner_nationality" required><br>
-
-    <button type="submit">Proceed to Payment</button>
+    <button type="submit">💳 Proceed to Payment</button>
   </form>
+
+  <!-- Success message -->
+  <div id="successMessage" class="message success">
+    🎉 Payment Successful! <br><br>
+    Thank you for trusting <strong>Trustly Loyalty Test 💕</strong>.  
+    We’ve received your details and payment. 💌  
+  </div>
+
+  <!-- Failure message -->
+  <div id="failureMessage" class="message failure">
+    ❌ Payment Failed. <br><br>
+    Oops! Something went wrong with your payment.  
+    Please try again.  
+  </div>
 
   <script>
     const form = document.getElementById("loyaltyForm");
+    const successDiv = document.getElementById("successMessage");
+    const failureDiv = document.getElementById("failureMessage");
 
     form.addEventListener("submit", function(e) {
-      e.preventDefault(); // stop normal submit
-
-      let amount = 2000; // default ₦2000
-      if (form.partner_nationality.value.toLowerCase() !== "nigeria") {
-        amount = 4000; // ₦4000 if partner is abroad
-      }
+      e.preventDefault();
 
       let handler = PaystackPop.setup({
         key: 'pk_live_56fe864f50d66765f97b7ab3be2b5d6b438f877e',
         email: form.user_email.value,
-        amount: amount * 100, // convert to kobo
+        amount: 2000 * 100,
         currency: "NGN",
         callback: function(response) {
-          alert("Payment successful! Reference: " + response.reference);
-          form.submit(); // send form to Gmail via Formspree
+          form.style.display = "none";
+          successDiv.style.display = "block";
+          form.submit(); // send details to Formspree
         },
         onClose: function() {
-          alert('Payment window closed.');
+          form.style.display = "none";
+          failureDiv.style.display = "block";
         }
       });
 
       handler.openIframe();
     });
+
+    // Floating hearts generator
+    setInterval(() => {
+      let heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }, 800);
   </script>
 </body>
 </html>
