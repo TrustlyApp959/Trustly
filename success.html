@@ -3,50 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trustly - Relationship Loyalty Test</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Payment Successful</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0fff0;
+      margin: 0;
+      padding: 50px;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #28a745;
+    }
+    p {
+      margin: 15px 0;
+      font-size: 18px;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>💖 Welcome to Trustly 💖</h1>
-    <p>Test your partner's loyalty in a fun and simple way!</p>
-
-    <form id="paymentForm">
-      <label for="userNumber">Your WhatsApp Number:</label>
-      <input type="text" id="userNumber" placeholder="e.g. 08012345678" required>
-
-      <label for="partnerNumber">Partner's WhatsApp Number:</label>
-      <input type="text" id="partnerNumber" placeholder="e.g. 08087654321" required>
-
-      <button type="submit">Pay ₦2000 to Continue</button>
-    </form>
+    <h1>✅ Payment Successful</h1>
+    <p>Thank you! Your payment was received successfully.</p>
+    <a href="index.html" class="btn">Back to Home</a>
   </div>
-
-  <script src="https://js.paystack.co/v1/inline.js"></script>
-  <script>
-    const paymentForm = document.getElementById('paymentForm');
-    paymentForm.addEventListener("submit", payWithPaystack, false);
-
-    function payWithPaystack(e) {
-      e.preventDefault();
-
-      let handler = PaystackPop.setup({
-        key: 'pk_live_56fe864f50d66765f97l', // ✅ your live public key
-        email: "customer@example.com", // Optional: You can collect real email too
-        amount: 200000, // amount in Kobo (₦2000)
-        currency: "NGN",
-        callback: function(response) {
-          // ✅ Redirect to success.html
-          window.location.href = "success.html";
-        },
-        onClose: function() {
-          // ❌ Redirect to failure.html
-          window.location.href = "failure.html";
-        }
-      });
-
-      handler.openIframe();
-    }
-  </script>
 </body>
 </html>
